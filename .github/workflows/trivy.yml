@@ -1,0 +1,34 @@
+name: Secrets Check with Trivy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'trivy/python/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'trivy/python/**'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Acionador manual do fluxo de trabalho'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Docker Build
+        run: docker build -t trivy-python:latest -f trivy/python/Dockerfile trivy/python
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          scan-type: 'image'
+          image-ref: 'trivy-python:latest'
