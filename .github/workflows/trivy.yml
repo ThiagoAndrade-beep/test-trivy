@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'trivy/python/**'
+      - 'python/trivy/**'
   pull_request:
     branches:
       - main
