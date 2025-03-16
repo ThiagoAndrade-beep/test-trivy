@@ -8,4 +8,4 @@ WORKDIR /app
 COPY . .
 
 # Comando padrão ao iniciar o container
-CMD ["python", "--version"]
+CMD ["pytho", "--version"]
